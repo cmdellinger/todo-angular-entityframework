@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "W9XEJAETxHI=",
+  "success": true,
+  "projectFilePath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/API/API.csproj",
+  "expectedPackageFiles": [
+    "/Users/cmdellinger/.nuget/packages/microsoft.aspnetcore.openapi/9.0.7/microsoft.aspnetcore.openapi.9.0.7.nupkg.sha512",
+    "/Users/cmdellinger/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
