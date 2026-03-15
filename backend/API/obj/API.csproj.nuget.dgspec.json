@@ -1,17 +1,89 @@
 {
   "format": 1,
   "restore": {
-    "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/API/API.csproj": {}
+    "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/API/API.csproj": {}
   },
   "projects": {
-    "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/API/API.csproj": {
+    "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/API/API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/API/API.csproj",
+        "projectUniqueName": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/API/API.csproj",
         "projectName": "API",
-        "projectPath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/API/API.csproj",
+        "projectPath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/API/API.csproj",
         "packagesPath": "/Users/cmdellinger/.nuget/packages/",
-        "outputPath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/API/obj/",
+        "outputPath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/API/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/cmdellinger/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Infrastructure/Infrastructure.csproj": {
+                "projectPath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Infrastructure/Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[9.0.13, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.303/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Core/Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Core/Core.csproj",
+        "projectName": "Core",
+        "projectPath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Core/Core.csproj",
+        "packagesPath": "/Users/cmdellinger/.nuget/packages/",
+        "outputPath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/cmdellinger/.nuget/NuGet/NuGet.Config"
@@ -43,10 +115,77 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.303/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Infrastructure/Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Infrastructure/Infrastructure.csproj",
+        "projectName": "Infrastructure",
+        "projectPath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Infrastructure/Infrastructure.csproj",
+        "packagesPath": "/Users/cmdellinger/.nuget/packages/",
+        "outputPath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/cmdellinger/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Core/Core.csproj": {
+                "projectPath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Core/Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
           "dependencies": {
-            "Microsoft.AspNetCore.OpenApi": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.7, )"
+              "version": "[9.0.14, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.13, )"
             }
           },
           "imports": [
@@ -61,9 +200,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

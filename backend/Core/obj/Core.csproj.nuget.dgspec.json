@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/Core/Core.csproj": {}
+    "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Core/Core.csproj": {}
   },
   "projects": {
-    "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/Core/Core.csproj": {
+    "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Core/Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/Core/Core.csproj",
+        "projectUniqueName": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Core/Core.csproj",
         "projectName": "Core",
-        "projectPath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/Core/Core.csproj",
+        "projectPath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Core/Core.csproj",
         "packagesPath": "/Users/cmdellinger/.nuget/packages/",
-        "outputPath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/Core/obj/",
+        "outputPath": "/Volumes/ExternalHD/GitHub/todo-angular-entityframework/backend/Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/cmdellinger/.nuget/NuGet/NuGet.Config"
