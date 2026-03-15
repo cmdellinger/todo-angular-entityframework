@@ -1,5 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TodoListService } from './core/services/todo-list';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +11,8 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('frontend');
+   
+  private todoListService = inject(TodoListService);
+
+  lists = toSignal(this.todoListService.getLists(), { initialValue: [] as any[] });
 }
