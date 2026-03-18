@@ -23,7 +23,7 @@ namespace API.Controllers
         }
 
         [HttpPost("/api/todolists/{listId:int}/items")]
-        public async Task<ActionResult<ToDoItem>> CreateItem(int listId, ToDoItem toDoItem)
+        public async Task<ActionResult<ToDoItem>> CreateItem(int listId, [FromBody] ToDoItem toDoItem)
         {
             if (listId != toDoItem.ToDoListId) return BadRequest();
             await _repo.AddItemAsync(toDoItem);

@@ -1,0 +1,22 @@
+.date-info {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: inherit;
+}
+
+/* The Container: Stacks cards vertically */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Spacing between cards */
+  padding: 20px;
+}

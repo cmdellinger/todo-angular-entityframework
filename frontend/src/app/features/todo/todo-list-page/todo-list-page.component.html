@@ -1,0 +1,12 @@
+<p>test user's to-do lists</p>
+
+<!-- list of lists -->
+<div class="card-container">
+    @for (toDoList of toDoLists(); track $index) {
+        <app-todo-list
+            [toDoList]="toDoList"
+        />
+    } @empty {
+        to do list is currently empty
+    }
+</div>

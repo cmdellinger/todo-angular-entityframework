@@ -1,0 +1,31 @@
+ <!-- title/action row -->
+@if (isEditing) {
+    <input [(ngModel)]="editTitle" />
+    <button class="link-button" (click)="saveEdit()">Save</button>
+    <button class="link-button" (click)="cancelEdit()">Cancel</button>
+} @else {
+    <div class="actions">
+        <h2 (click)="startEdit()">{{toDoList()?.name}}</h2>
+        <button class="link-button" (click)="addItem()">Add</button>
+        <button class="link-button" (click)="startEdit()">Edit</button>
+        <button class="link-button" (click)="onDelete()">Delete</button>
+    </div>
+}
+<!-- timestamp row -->
+<div class="date-info">created: {{toDoList()?.createdAt}}</div>
+@if (toDoList()?.updatedAt) {
+    <div class="date-info">updated: {{toDoList()?.updatedAt}}</div>
+}
+<br>
+<!-- list of lists -->
+<div class="card-container">
+    @for (toDoItem of toDoItems(); track $index) {
+        <app-todo-item
+            [toDoItem]="toDoItem"
+            (toDoItemUpdated)="updateItem($event)"
+            (toDoItemDeleted)="deleteItem($event)"
+        />
+    } @empty {
+        to do list is currently empty
+    }
+</div>

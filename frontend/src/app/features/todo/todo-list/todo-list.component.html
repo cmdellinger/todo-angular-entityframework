@@ -1,0 +1,12 @@
+ <div class="card">
+    <div class="card-content actions">
+        <!-- title/action row -->
+        <div (click)="navigateToDetail()">{{toDoList.name}}</div>
+        <br>
+        <!-- timestamp row -->
+        <div class="date-info">created: {{toDoList.createdAt}}</div>
+        @if (toDoList.updatedAt) {
+            <div class="date-info">updated: {{toDoList.updatedAt}}</div>
+        }
+    </div>
+ </div>

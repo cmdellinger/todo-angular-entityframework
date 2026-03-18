@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Framework Services
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // Database
 builder.Services.AddDbContext<AppDbContext>(opt =>
@@ -36,6 +38,11 @@ var app = builder.Build();
 // app.UseHttpsRedirection();
 
 // app.UseAuthorization();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 app.UseCors("CorsPolicy");
 app.MapControllers();
 
