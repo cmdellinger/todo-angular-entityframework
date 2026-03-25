@@ -1,4 +1,6 @@
 mssql_data/*
 
 obj/
+**/obj/
 bin/
+**/bin/

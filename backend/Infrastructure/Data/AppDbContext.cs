@@ -1,11 +1,10 @@
 using Core.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data;
 
-public class AppDbContext(DbContextOptions options) : IdentityDbContext<IdentityUser>(options)
+public class AppDbContext(DbContextOptions options) : IdentityDbContext<AppUser>(options)
 {
     public DbSet<ToDoItem> ToDoItems { get; set; }
     public DbSet<ToDoList> ToDoLists { get; set; }
@@ -24,5 +23,15 @@ public class AppDbContext(DbContextOptions options) : IdentityDbContext<Identity
         }
 
         return await base.SaveChangesAsync(cancellationToken);
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        builder.Entity<ToDoList>()
+            .HasOne(toDoList => toDoList.User)
+            .WithMany(user => user.ToDoLists)
+            .HasForeignKey(toDoList => toDoList.UserId);
     }
 }
