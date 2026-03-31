@@ -1,0 +1,22 @@
+<div>
+    <form [formGroup]="registerForm" (ngSubmit)="submit()">
+        <label for="username">username</label>
+        <input type="text" formControlName="username">
+        <br>
+        <label for="email">email</label>
+        <input type="text" formControlName="email">
+        <br>
+        <label for="password">password</label>
+        <input type="password" formControlName="password">
+        <br>
+        <small>
+            must be 8 or more characters<br>
+            must contain an uppercase letter<br>
+            must contain an lowercase letter<br>
+            must contain at least one digit<br>
+            must contain at least one symbol<br>
+        </small>
+        <br>
+        <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    </form>
+</div>

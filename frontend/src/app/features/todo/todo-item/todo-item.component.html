@@ -14,10 +14,6 @@
         }
         <br>
         <!-- timestamp row -->
-        <span class="date-info">created: {{toDoItem.createdAt}}</span>
-        @if (toDoItem.updatedAt) {
-            <span class="date-info">updated: {{toDoItem.updatedAt}}</span>
-        }
         @if (toDoItem.completedAt) {
             <span class="date-info">completed: {{toDoItem.completedAt}}</span>
         }

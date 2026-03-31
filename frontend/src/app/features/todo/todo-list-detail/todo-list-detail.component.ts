@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 
-import { ToDoItemService } from '../../../core/services/todo-item';
-import { ToDoListService } from '../../../core/services/todo-list';
+import { ToDoItemService } from '../../../core/services/todo-item.service';
+import { ToDoListService } from '../../../core/services/todo-list.service';
 
 import { ToDoItem } from '../../../core/models/todo-item.model';
 import { ToDoList } from '../../../core/models/todo-list.model';
@@ -52,9 +52,6 @@ export class ToDoListDetailComponent {
       title: 'new to-do item',
       isCompleted: false,
       sortOrder: 0,
-      toDoListId: this.toDoListId,
-      createdAt: new Date().toISOString(),
-      updatedAt: undefined
     };
     this.toDoItemService.addItem(this.toDoListId, newItem).subscribe(
       created => {

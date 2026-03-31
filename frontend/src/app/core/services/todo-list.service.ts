@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ToDoList } from '../models/todo-list.model';
+import { CreateListDto } from '../dtos/list/create-list.dto';
+import { UpdateListDto } from '../dtos/list/update-list.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -12,19 +14,19 @@ export class ToDoListService {
     return id ? `${this.apiUrl}/todolists/${id}` : `${this.apiUrl}/todolists`
   }
 
-  getLists(userId: string) {
-    return this.http.get<ToDoList[]>(`${this.listsUrl()}?userId=${userId}`);
+  getLists() {
+    return this.http.get<ToDoList[]>(`${this.listsUrl()}`);
   }
 
   getList(id: number) {
     return this.http.get<ToDoList>(this.listsUrl(id));
   }
 
-  createList(newList: ToDoList) {
+  createList(newList: CreateListDto) {
     return this.http.post<ToDoList>(this.listsUrl(), newList);
   }
 
-  updateList(id: number, list: ToDoList) {
+  updateList(id: number, list: UpdateListDto) {
     return this.http.put<void>(this.listsUrl(id), list);
   }
 

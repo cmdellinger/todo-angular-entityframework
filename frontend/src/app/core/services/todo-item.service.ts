@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ToDoItem } from '../models/todo-item.model';
+import { CreateItemDto } from '../dtos/item/create-item.dto';
+import { UpdateItemDto } from '../dtos/item/update-item.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -24,11 +26,11 @@ export class ToDoItemService {
     return this.http.get<ToDoItem>(this.itemUrl(id));
   }
 
-  addItem(listId: number, newToDoItem: ToDoItem) {
+  addItem(listId: number, newToDoItem: CreateItemDto) {
     return this.http.post<ToDoItem>(this.itemsUrl(listId), newToDoItem);
   }
 
-  updateItem(id: number, updatedToDoItem: ToDoItem) {
+  updateItem(id: number, updatedToDoItem: UpdateItemDto) {
     return this.http.put<void>(this.itemUrl(id), updatedToDoItem);
   }
 
