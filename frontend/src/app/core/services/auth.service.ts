@@ -41,7 +41,7 @@ export class AuthService {
     );
   }
 
-  loadCurrentUser() {
+  loadCurrentUser(): Observable<User | null> {
     const token = localStorage.getItem('token');
     if (token) {
       return this.http.get<User>(`${this.authUrl}/me`).pipe(

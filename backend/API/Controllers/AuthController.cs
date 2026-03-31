@@ -1,8 +1,13 @@
+using System.Reflection;
+using System.Security.Claims;
 using Core.DTOs;
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -74,6 +79,50 @@ namespace API.Controllers
                 Email = user.Email!,
                 Token = tokenService.CreateToken(user)
             };
+        }
+
+        [HttpGet("google-login")]
+        public IActionResult GoogleLogin()
+        {
+            var properties = new AuthenticationProperties
+            {
+                RedirectUri = Url.Action("GoogleCallback")
+            };
+
+            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+        }
+
+        [HttpGet("google-callback")]
+        public async Task<IActionResult> GoogleCallback()
+        {
+            var result = await HttpContext.AuthenticateAsync("Cookies");
+            if (!result.Succeeded) return Unauthorized();
+
+            var username = result.Principal.FindFirstValue(ClaimTypes.Name);
+            var email = result.Principal.FindFirstValue(ClaimTypes.Email);
+
+            // check if registered
+            var user = await userManager.FindByEmailAsync(email!);
+            // if user doesn't exist create one in database
+            if (user == null)
+            {
+                var newUser = new AppUser
+                {
+                    UserName = username?.Replace(" ", "") ?? email!.Split('@')[0],
+                    Email = email
+                };
+
+                // create user in db "in-place" (edits AppUser instance)
+                var createResult = await userManager.CreateAsync(newUser);
+                if (!createResult.Succeeded) return BadRequest(createResult.Errors);
+                user = newUser;
+            }
+
+            // clear the temporary cookie
+            await HttpContext.SignOutAsync("Cookies");
+            //issue jwt
+            var token = tokenService.CreateToken(user!);
+            return Redirect($"http://localhost:4200/login?token={token}");
         }
     }
 }

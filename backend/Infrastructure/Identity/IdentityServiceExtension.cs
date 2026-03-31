@@ -26,7 +26,7 @@ public static class IdentityServiceExtension
             .AddSignInManager();
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
+            .AddJwtBearer( options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
@@ -35,6 +35,14 @@ public static class IdentityServiceExtension
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
+                }
+            )
+            .AddCookie("Cookies")
+            .AddGoogle( options =>
+                {
+                    options.ClientId = config["Authentication:Google:ClientId"]!;
+                    options.ClientSecret = config["Authentication:Google:ClientSecret"]!;
+                    options.SignInScheme = "Cookies";
                 }
             );
         

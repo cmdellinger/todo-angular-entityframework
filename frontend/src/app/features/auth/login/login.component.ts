@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { LoginDto } from '../../../core/dtos/auth/login.dto';
@@ -14,10 +14,22 @@ import { LoginDto } from '../../../core/dtos/auth/login.dto';
 export class LoginComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   ngOnInit(){
+    // check if user logged in
     if (this.authService.currentUser()) {
       this.router.navigate(['/lists']);
+      return;
+    }
+
+    // check if Google OAtuh token in URL
+    const token = this.route.snapshot.queryParams['token'];
+    if (token) {
+      localStorage.setItem('token', token);
+      this.authService.loadCurrentUser().subscribe(
+        () => { this.router.navigate(['/lists']); }
+      );
     }
   }
 
@@ -44,4 +56,8 @@ export class LoginComponent implements OnInit {
       error: (err) => console.error(err)
     })
   }
+
+  googleLogin() {
+    window.location.href = 'http://localhost:5000/api/auth/google-login';
+  }  
 }
