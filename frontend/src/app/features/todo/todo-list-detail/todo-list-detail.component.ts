@@ -1,7 +1,14 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { MatAnchor, MatButton, MatIconButton } from "@angular/material/button";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from "@angular/material/list";
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { forkJoin } from 'rxjs';
 
 import { ToDoItemService } from '../../../core/services/todo-item.service';
 import { ToDoListService } from '../../../core/services/todo-list.service';
@@ -14,8 +21,17 @@ import { ToDoItemComponent } from "../todo-item/todo-item.component";
   selector: 'app-todo-list-detail',
   imports: [
     ToDoItemComponent,
-    FormsModule
-  ],
+    FormsModule,
+    MatAnchor,
+    MatButton,
+    MatButtonToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconButton,
+    MatIconModule,
+    MatListModule,
+    MatProgressSpinner
+],
   templateUrl: './todo-list-detail.component.html',
   styleUrl: './todo-list-detail.component.scss',
 })
@@ -29,17 +45,26 @@ export class ToDoListDetailComponent {
   toDoList = signal<ToDoList | undefined>(undefined);
   toDoItems = signal<ToDoItem[]>([]);
 
+  showAddForm = false;
+  newItemTitle = '';
+  hideSingleSelectionIndicator = signal(false);
+  filter = signal('active');
+  isLoading = signal(true);
+
   constructor() {
-    this.toDoListService.getList(this.toDoListId).subscribe(
-      list => { 
-        this.toDoList.set(list);
-      }
-    )
-    this.toDoItemService.getItems(this.toDoListId).subscribe(
-      items => {
-        this.toDoItems.set(items);
-      }
-    )
+    this.route.paramMap.subscribe(params => {
+      this.isLoading.set(true);
+      this.toDoListId = Number(params.get('id'));
+      
+      forkJoin( [
+          this.toDoListService.getList(this.toDoListId),
+          this.toDoItemService.getItems(this.toDoListId)
+      ] ).subscribe(([list, items]) => {
+          this.toDoList.set(list);
+          this.toDoItems.set(items);
+          this.isLoading.set(false);
+      } );
+    } );
   }
 
   // ============
@@ -49,13 +74,15 @@ export class ToDoListDetailComponent {
   addItem() {
     const newItem: ToDoItem = {
       id: 0,
-      title: 'new to-do item',
+      title: this.newItemTitle || 'new to-do item',
       isCompleted: false,
       sortOrder: 0,
     };
     this.toDoItemService.addItem(this.toDoListId, newItem).subscribe(
       created => {
-        this.toDoItems.update( items => [...items, created])
+        this.toDoItems.update( items => [...items, created]);
+        this.newItemTitle = '';
+        this.showAddForm = false;
       }
     );
   }
@@ -80,6 +107,7 @@ export class ToDoListDetailComponent {
       () => {
         this.toDoList.set(updatedList);
         this.isEditing = false;
+        this.toDoListService.triggerRefresh();
       }
     );
   }
@@ -89,9 +117,9 @@ export class ToDoListDetailComponent {
   }
 
   updateItem(toDoItem: ToDoItem) {
-    this.toDoItemService.updateItem(toDoItem.id, toDoItem).subscribe(() => {
+    this.toDoItemService.updateItem(toDoItem.id, toDoItem).subscribe( () => {
       this.toDoItems.update(items => items.map(i => i.id === toDoItem.id ? toDoItem : i));
-    });
+    } );
   }
 
   // ============
@@ -99,14 +127,30 @@ export class ToDoListDetailComponent {
   // ============
   
   onDelete() {
-    this.toDoListService.deleteList(this.toDoListId).subscribe(() => {
+    this.toDoListService.deleteList(this.toDoListId).subscribe( () => {
       this.router.navigate(['/lists']);
-    });
+    } );
   }
 
   deleteItem(id: number) {
-    this.toDoItemService.deleteItem(id).subscribe(() => {
+    this.toDoItemService.deleteItem(id).subscribe( () => {
       this.toDoItems.update(items => items.filter(i => i.id !== id));
-    });
+    } );
   }
+
+  // ============
+  // UI
+  // ============
+  toggleSingleSelectionIndicator() {
+    this.hideSingleSelectionIndicator.update(value => !value);
+  }
+
+  filteredItems = computed( () => {
+    const items = this.toDoItems();
+    switch (this.filter()) {
+      case 'active': return items.filter(i => !i.isCompleted);
+      case 'completed': return items.filter(i => i.isCompleted);
+      default: return items;
+    }
+  } );
 }

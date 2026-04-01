@@ -1,19 +1,24 @@
-<p>{{ username }}'s to-do lists</p>
-<button (click)="logout()">Logout</button>
-<br><br>
-<form [formGroup]="newListForm" (ngSubmit)="createNewList()">
-    <label for="name">New List Name</label>
-    <input type="text" formControlName="name">
-    <br>
-    <button type="submit" [disabled]="newListForm.invalid">Create List</button>
-</form>
+<!-- create new list button & form -->
+<button mat-button="tonal" (click)="showForm = !showForm">+ New List</button>
+
+@if (showForm) {
+    <form [formGroup]="newListForm" (ngSubmit)="createNewList()">
+        <mat-form-field>
+            <mat-label for="name">List Name</mat-label>
+            <input matInput formControlName="name">
+        </mat-form-field>
+        <button matButton="tonal" type="submit" [disabled]="newListForm.invalid">Create List</button>
+    </form>
+}
+
 <!-- list of lists -->
-<div class="card-container">
-    @for (toDoList of toDoLists(); track $index) {
-        <app-todo-list
-            [toDoList]="toDoList"
-        />
-    } @empty {
-        to do list is currently empty
-    }
-</div>
+<mat-nav-list>
+  @for (list of toDoLists(); track list.id) {
+    <a mat-list-item [routerLink]="['/lists', list.id]">
+        <span class="list-link">
+            {{ list.name }}
+            <span class="item-count">{{ list.activeItemCount }}</span>
+        </span>
+    </a>
+  }
+</mat-nav-list>

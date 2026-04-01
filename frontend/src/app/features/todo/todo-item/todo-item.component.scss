@@ -1,39 +1,54 @@
-.date-info {
-  font-size: 0.75rem;
-  color: #888;
+.todo-item {
+  padding: 8px 16px;
+  border-bottom: 1px solid #e0e0e0;
+
+  &.completed .item-title {
+    text-decoration: line-through;
+    color: #888;
+  }
 }
 
-.link-button {
-  background: none;
-  border: none;
-  padding: 0;
-  color: #007bff;
-  cursor: pointer;
-  text-decoration: underline;
-  font-size: inherit;
-}
-
-.actions {
+.item-row {
   display: flex;
+  align-items: center;
   gap: 8px;
 }
 
-/* The Card: Arranges image and content horizontally */
-.card {
-  display: flex;
-  flex-direction: row; /* Horizontal layout */
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow: hidden;
-  background: white;
+.item-row button[mat-icon-button] {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+.spacer {
+  flex: 1;
 }
 
-.card-image {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
+.item-title {
+  font-size: 1rem;
 }
 
-.card-content {
-  padding: 16px;
+.title-field {
+  flex: 1;
+}
+
+.description-field {
+  width: 100%;
+  margin-left: 40px; // indent to align with title (past the checkbox)
+}
+
+.item-description {
+  margin: 4px 0 0 40px;
+  font-size: 0.875rem;
+  color: #666;
+  cursor: pointer;
+
+  &:hover {
+    color: #333;
+  }
 }

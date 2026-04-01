@@ -1,13 +1,27 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AuthService } from '../../../core/services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDividerModule } from '@angular/material/divider';
+
+import { AuthService } from '../../../core/services/auth.service';
 
 import { LoginDto } from '../../../core/dtos/auth/login.dto';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [
+    MatButtonModule,
+    MatCardModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    RouterLink
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -34,12 +48,12 @@ export class LoginComponent implements OnInit {
   }
 
   loginForm = new FormGroup({
-    email: new FormControl('your@email.com',
+    email: new FormControl('',
       {validators: [
         Validators.required
       ]}
     ),
-    password: new FormControl('password',
+    password: new FormControl('',
       {validators: [
         Validators.required
       ]}

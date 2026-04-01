@@ -1,28 +1,66 @@
- <!-- title/action row -->
-@if (isEditing) {
-    <input [(ngModel)]="editTitle" />
-    <button class="link-button" (click)="saveEdit()">Save</button>
-    <button class="link-button" (click)="cancelEdit()">Cancel</button>
-} @else {
-    <div class="actions">
-        <h2 (click)="startEdit()">{{toDoList()?.name}}</h2>
-        <button class="link-button" (click)="addItem()">Add</button>
-        <button class="link-button" (click)="startEdit()">Edit</button>
-        <button class="link-button" (click)="onDelete()">Delete</button>
+@if (isLoading()) {
+    <div class="spinner-container">
+        <mat-spinner diameter="40"></mat-spinner>
     </div>
-}
-<!-- timestamp row -->
-<div class="date-info">created: {{toDoList()?.createdAt}}</div>
-<br>
-<!-- list of lists -->
-<div class="card-container">
-    @for (toDoItem of toDoItems(); track $index) {
-        <app-todo-item
-            [toDoItem]="toDoItem"
-            (toDoItemUpdated)="updateItem($event)"
-            (toDoItemDeleted)="deleteItem($event)"
-        />
-    } @empty {
-        to do list is currently empty
+} @else {
+    <!-- title/action row -->
+    @if (isEditing) {
+        <mat-form-field>
+            <mat-label>List Name</mat-label>
+            <input matInput [(ngModel)]="editTitle">
+        </mat-form-field>
+        <button mat-button (click)="saveEdit()">Save</button>
+        <button mat-button (click)="cancelEdit()">Cancel</button>
+    } @else {
+        <div class="header-row">
+            <h2>{{toDoList()?.name}}</h2>
+            <button mat-icon-button class="material-icons" (click)="startEdit()">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <span class="spacer"></span>
+            <button mat-icon-button class="material-icons" color="warn" (click)="onDelete()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
     }
-</div>
+
+    <!-- add new todo-item button (form below to not move view toggle) -->
+    <button mat-button (click)="showAddForm = !showAddForm">+ New To-Do</button>
+
+    <!-- completion view toggle -->
+    <mat-button-toggle-group
+        name="completionToggle"
+        aria-label="Completion Toggle"
+        [value]="filter()"
+        (change)="filter.set($event.value)"
+        [hideSingleSelectionIndicator]="hideSingleSelectionIndicator()"
+    >
+        <mat-button-toggle value="all">All</mat-button-toggle>
+        <mat-button-toggle value="active">Active</mat-button-toggle>
+        <mat-button-toggle value="completed">Completed</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <!-- add new todo-item form -->
+    @if (showAddForm) {
+        <div class="add-form">
+            <mat-form-field>
+                <mat-label>Title</mat-label>
+                <input matInput [(ngModel)]="newItemTitle">
+            </mat-form-field>
+            <button mat-button (click)="addItem()">Add To-Do</button>
+        </div>
+    }
+
+    <!-- list of to-do items -->
+    <mat-list>
+        @for (toDoItem of filteredItems(); track toDoItem.id) {
+            <app-todo-item
+                [toDoItem]="toDoItem"
+                (toDoItemUpdated)="updateItem($event)"
+                (toDoItemDeleted)="deleteItem($event)"
+            />
+        } @empty {
+            <p class="empty-state">No Items - click "+ New To-Do" to add one</p>
+        }
+    </mat-list>
+}

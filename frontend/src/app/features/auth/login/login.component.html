@@ -1,13 +1,30 @@
-<div>
-    <form [formGroup]="loginForm" (ngSubmit)="submit()">
-        <label for="email">email</label>
-        <input type="text" formControlName="email">
-        <br>
-        <label for="password">password</label>
-        <input type="password" formControlName="password">
-        <br>
-        <button type="submit" [disabled]="loginForm.invalid">Login</button>
-    </form>
-    <br>
-    <button (click)="googleLogin()">Sign in with Google</button>
+<div class="auth-container">
+    <mat-card class="auth-card">
+        <mat-card-header>
+            <mat-card-title>Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="loginForm" (ngSubmit)="submit()">
+                <mat-form-field>
+                    <mat-label>email</mat-label>
+                    <input matInput formControlName="email">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>password</mat-label>
+                    <input matInput type="password" formControlName="password">
+                </mat-form-field>
+
+                <button matButton="tonal" type="submit" [disabled]="loginForm.invalid">Login</button>
+            </form>
+
+            <div class="or-divider">
+                <span>OR</span>
+            </div>
+            
+            <button matButton="tonal" (click)="googleLogin()">Sign in with Google</button>
+
+            <p>Don't have an account? <a routerLink="/register">Register</a></p>
+        </mat-card-content>
+    </mat-card>
 </div>

@@ -1,22 +1,57 @@
-<div>
-    <form [formGroup]="registerForm" (ngSubmit)="submit()">
-        <label for="username">username</label>
-        <input type="text" formControlName="username">
-        <br>
-        <label for="email">email</label>
-        <input type="text" formControlName="email">
-        <br>
-        <label for="password">password</label>
-        <input type="password" formControlName="password">
-        <br>
-        <small>
-            must be 8 or more characters<br>
-            must contain an uppercase letter<br>
-            must contain an lowercase letter<br>
-            must contain at least one digit<br>
-            must contain at least one symbol<br>
-        </small>
-        <br>
-        <button type="submit" [disabled]="registerForm.invalid">Register</button>
-    </form>
+<div class="auth-container">
+    <mat-card class="auth-card">
+        <mat-card-header>
+            <mat-card-title>Register</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="registerForm" (ngSubmit)="submit()">
+                <!-- username -->
+                <mat-form-field>
+                    <mat-label>username</mat-label>
+                    <input matInput formControlName="username">
+                </mat-form-field>
+                <!-- email -->
+                <mat-form-field>
+                    <mat-label>email</mat-label>
+                    <input matInput formControlName="email">
+                </mat-form-field>
+                <!-- password -->
+                <mat-form-field>
+                    <mat-label>password</mat-label>
+                    <input matInput type="password" formControlName="password">
+                </mat-form-field>
+                <!-- password rules -->
+                <small [class.valid]="passwordChecks.all">
+                    password rules:
+                </small>
+                <small [class.valid]="passwordChecks.length">
+                    <span class="icon">{{ passwordChecks.length ? '✓' : '✗' }}</span>
+                    must be 8 or more characters
+                </small>
+                <small [class.valid]="passwordChecks.uppercase">
+                    <span class="icon">{{ passwordChecks.uppercase ? '✓' : '✗' }}</span>
+                    must contain an uppercase letter
+                </small>
+                <small [class.valid]="passwordChecks.lowercase">
+                    <span class="icon">{{ passwordChecks.lowercase ? '✓' : '✗' }}</span>
+                    must contain an lowercase letter
+                </small>
+                <small [class.valid]="passwordChecks.digit">
+                    <span class="icon">{{ passwordChecks.digit ? '✓' : '✗' }}</span>
+                    must contain at least one digit
+                </small>
+                <small [class.valid]="passwordChecks.symbol">
+                    <span class="icon">{{ passwordChecks.symbol ? '✓' : '✗' }}</span>
+                    must contain at least one symbol
+                </small>            
+                <!-- submit button -->
+                <button matButton="tonal" type="submit" [disabled]="registerForm.invalid">Register</button>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <a matButton="tonal" mat-icon-button routerLink="/login">
+                <mat-icon>arrow_back</mat-icon>
+            </a>
+        </mat-card-actions>
+    </mat-card>
 </div>

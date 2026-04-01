@@ -1,0 +1,44 @@
+.auth-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0e0e0;
+}
+
+.auth-card {
+  width: 400px;
+  padding: 2rem;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+.or-divider {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+  }
+
+  span {
+    padding: 0 1rem;
+    color: #888;
+    font-size: 0.85rem;
+  }
+}
+
+mat-card-header {
+  margin-bottom: 1rem;
+}

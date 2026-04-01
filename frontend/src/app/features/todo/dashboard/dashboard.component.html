@@ -1,0 +1,19 @@
+<!-- header -->
+<mat-toolbar color="primary">
+  <span>{{ username }}'s to-do lists</span>
+  <span class="spacer"></span>
+  <button mat-button="tonal" (click)="logout()">Logout</button>
+</mat-toolbar>
+
+<!-- dashboard -->
+<mat-sidenav-container>
+    <!-- list navigation -->
+    <mat-sidenav mode="side" opened style="width: 33%;">
+        <app-todo-list-page />
+    </mat-sidenav>
+
+    <!-- list content -->
+    <mat-sidenav-content>
+        <router-outlet />
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,12 @@
+.spacer {
+  flex: 1;
+}
+
+mat-sidenav-container {
+  height: calc(100vh - 64px);
+}
+
+mat-sidenav {
+  border-right: 1px solid #e0e0e0;
+  border-radius: 0;
+}

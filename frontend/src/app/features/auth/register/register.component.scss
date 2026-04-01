@@ -1,0 +1,68 @@
+.auth-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0e0e0;
+}
+
+.auth-card {
+  width: 400px;
+  padding: 2rem;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+.inputdemoErrors .inputErrorsApp {
+  min-height: 48px; }
+  
+.inputdemoErrors md-input-container > p {
+  font-size: 0.8em;
+  text-align: left;
+  width: 100%; }
+
+.icon {
+  display: inline-block;
+  width: 1rem;
+  text-align: center;
+  margin-right: 0.5rem;
+}
+
+.or-divider {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+  }
+
+  span {
+    padding: 0 1rem;
+    color: #888;
+    font-size: 0.85rem;
+  }
+}
+
+mat-card-header {
+  margin-bottom: 1rem;
+}
+
+small {
+  color: red;
+  display: block;
+
+  &.valid {
+    color: green;
+  }
+}

@@ -29,6 +29,7 @@ public class ToDoListRepository(AppDbContext _context) : IToDoListRepository
     {
         return await _context.ToDoLists
             .Where(toDoList => toDoList.UserId == userId)
+            .Include(toDoList => toDoList.Items)
             .ToListAsync();
     }
 

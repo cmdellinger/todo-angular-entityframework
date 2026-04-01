@@ -8,7 +8,7 @@ public class ReturnListDto
     public required string Name { get; set; }
     public ICollection<ReturnItemDto> Items { get; set; } = [];
     public DateTimeOffset CreatedAt { get; set; }
-
+    public int ActiveItemCount { get; set; }
     public static ReturnListDto FromEntity(ToDoList list)
     {
         return new ReturnListDto
@@ -16,7 +16,8 @@ public class ReturnListDto
           Id = list.Id,
           Name = list.Name,
           Items = list.Items.Select(ReturnItemDto.FromEntity).ToList(),
-          CreatedAt = list.CreatedAt
+          CreatedAt = list.CreatedAt,
+          ActiveItemCount = list.Items?.Count(i => !i.IsCompleted) ?? 0
         };
     }
 }

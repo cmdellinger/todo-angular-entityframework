@@ -5,4 +5,5 @@ export interface ToDoList {
     name: string;
     items: ToDoItem[];
     createdAt: string;
+    activeItemCount: number;
 }

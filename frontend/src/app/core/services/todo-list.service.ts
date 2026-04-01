@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+
 import { ToDoList } from '../models/todo-list.model';
+
 import { CreateListDto } from '../dtos/list/create-list.dto';
 import { UpdateListDto } from '../dtos/list/update-list.dto';
 
@@ -13,6 +15,7 @@ export class ToDoListService {
   private listsUrl(id?: number): string {
     return id ? `${this.apiUrl}/todolists/${id}` : `${this.apiUrl}/todolists`
   }
+  refreshNeeded = signal(0);
 
   getLists() {
     return this.http.get<ToDoList[]>(`${this.listsUrl()}`);
@@ -32,5 +35,9 @@ export class ToDoListService {
 
   deleteList(id: number) {
     return this.http.delete<void>(this.listsUrl(id));
+  }
+
+  triggerRefresh() {
+    this.refreshNeeded.update(v => v + 1);
   }
 }

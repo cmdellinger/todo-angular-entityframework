@@ -1,30 +1,51 @@
- <div class="card">
-    <div class="card-content actions">
-        <!-- title/action row -->
-        <input type="checkbox"
+ <div class="todo-item" [class.completed]="toDoItem.isCompleted">
+    <!-- top row -->
+    <div class="item-row">
+        <!-- checkbox -->
+        <mat-checkbox
             [checked]="toDoItem.isCompleted"
-            (change)="onCompleted()"/>
+            (change)="onCompleted()">
+        </mat-checkbox>
 
+        <!-- title -->
         @if (isEditing){
-            <input [(ngModel)]="editTitle" />
+            <mat-form-field>
+                <input matInput [(ngModel)]="editTitle" />
+            </mat-form-field>
         } @else {
-            <span (click)="startEdit()">{{toDoItem.title}}</span>
-            <button class="link-button" (click)="startEdit()">Edit</button>
-            <button class="link-button" (click)="onDelete()">Delete</button>
+            <span [class.completed]="toDoItem.isCompleted">{{ toDoItem.title }}</span>
         }
-        <br>
-        <!-- timestamp row -->
-        @if (toDoItem.completedAt) {
-            <span class="date-info">completed: {{toDoItem.completedAt}}</span>
-        }
-        <br>
-        <!-- optional description -->
+
+        <!-- buttons -->
         @if (isEditing){
-            <textarea [(ngModel)]="editDescription"></textarea>
-            <button class="link-button" (click)="saveEdit()">Save</button>
-            <button class="link-button" (click)="cancelEdit()">Cancel</button>
+            <button mat-icon-button (click)="saveEdit()">
+                <mat-icon>check</mat-icon>
+            </button>
+            <button mat-icon-button (click)="cancelEdit()">
+                <mat-icon>close</mat-icon>
+            </button>
         } @else {
-            <textarea (click)="startEdit()">{{toDoItem.description}}</textarea>
+            <button mat-icon-button (click)="startEdit()">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <span class="spacer"></span>
+            <button mat-icon-button color="warn" (click)="onDelete()">
+                <mat-icon>delete</mat-icon>
+            </button>
+
         }
     </div>
+    
+    <!-- divider -->
+        <span class="spacer"></span>
+
+    <!-- bottom row -->
+        <!-- description -->
+        @if (isEditing){
+             <mat-form-field class="description-field">
+                <textarea matInput [(ngModel)]="editDescription" rows="2"></textarea>
+             </mat-form-field>
+        } @else {
+            <p class="item-description" (click)="startEdit()">{{ toDoItem.description }}</p>
+        }
  </div>

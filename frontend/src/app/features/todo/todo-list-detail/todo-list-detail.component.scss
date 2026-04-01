@@ -1,27 +1,37 @@
-.date-info {
-  font-size: 0.75rem;
-  color: #888;
+.add-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
 }
 
-.link-button {
-  background: none;
-  border: none;
-  padding: 0;
-  color: #007bff;
-  cursor: pointer;
-  text-decoration: underline;
-  font-size: inherit;
+.empty-state {
+    padding: 16px;
+    color: #888;
 }
 
-.actions {
-  display: flex;
-  gap: 8px;
+.header-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+
+    h2 {
+        margin: 0;
+    }
 }
 
-/* The Container: Stacks cards vertically */
-.card-container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px; /* Spacing between cards */
-  padding: 20px;
+.spacer {
+    flex: 1;
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    padding: 32px;
+}
+
+mat-button-toggle-group {
+  transform: scale(0.9);
+  transform-origin: left center;
 }

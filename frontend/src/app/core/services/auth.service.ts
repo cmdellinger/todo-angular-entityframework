@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
+import { Observable, of, tap } from 'rxjs';
+
 import { User } from '../models/user.model';
+
 import { RegisterDto } from '../dtos/auth/register.dto';
 import { LoginDto } from '../dtos/auth/login.dto';
-import { Observable, of, tap } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
