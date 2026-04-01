@@ -1,6 +1,7 @@
 using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
@@ -9,6 +10,12 @@ public class ToDoItemRepository(AppDbContext _context) : IToDoItemRepository
 {
     public async Task<ToDoItem> AddItemAsync(ToDoItem toDoItem)
     {
+        var maxSortOrder = await _context.ToDoItems
+            .Where(item => item.ToDoListId == toDoItem.ToDoListId)
+            .MaxAsync(item => (int?)item.SortOrder) ?? 0;
+
+        toDoItem.SortOrder = maxSortOrder + 1;
+
         _context.ToDoItems.Add(toDoItem);
         await _context.SaveChangesAsync();
         return toDoItem;
@@ -29,6 +36,7 @@ public class ToDoItemRepository(AppDbContext _context) : IToDoItemRepository
     {
         return await _context.ToDoItems
             .Where(toDoItem => toDoItem.ToDoListId == toDoListId)
+            .OrderBy(item => item.SortOrder)
             .ToListAsync();
     }
 

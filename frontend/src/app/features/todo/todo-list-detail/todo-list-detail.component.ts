@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { forkJoin } from 'rxjs';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { ToDoItemService } from '../../../core/services/todo-item.service';
 import { ToDoListService } from '../../../core/services/todo-list.service';
@@ -20,7 +21,7 @@ import { ToDoItemComponent } from "../todo-item/todo-item.component";
 @Component({
   selector: 'app-todo-list-detail',
   imports: [
-    ToDoItemComponent,
+    DragDropModule,
     FormsModule,
     MatAnchor,
     MatButton,
@@ -30,7 +31,8 @@ import { ToDoItemComponent } from "../todo-item/todo-item.component";
     MatIconButton,
     MatIconModule,
     MatListModule,
-    MatProgressSpinner
+    MatProgressSpinner,
+    ToDoItemComponent
 ],
   templateUrl: './todo-list-detail.component.html',
   styleUrl: './todo-list-detail.component.scss',
@@ -153,4 +155,19 @@ export class ToDoListDetailComponent {
       default: return items;
     }
   } );
+
+  onDrop(event: CdkDragDrop<ToDoItem[]>) {
+    const filtered = [...this.filteredItems()];
+    moveItemInArray(filtered, event.previousIndex, event.currentIndex);
+
+    const filteredIds = new Set(filtered.map(item => item.id));
+    const reordered = [
+      ...filtered,
+      ...this.toDoItems().filter(item => !filteredIds.has(item.id))
+    ]
+
+    this.toDoItems.set(reordered);
+    const itemIds = reordered.map(item => item.id);
+    this.toDoListService.reorderList(this.toDoListId, itemIds). subscribe();
+  }
 }

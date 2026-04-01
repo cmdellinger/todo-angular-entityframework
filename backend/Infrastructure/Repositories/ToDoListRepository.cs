@@ -38,4 +38,19 @@ public class ToDoListRepository(AppDbContext _context) : IToDoListRepository
         _context.Entry(toDoList).State = EntityState.Modified;
         await _context.SaveChangesAsync();
     }
+
+    public async Task UpdateSortOrderAsync(int listId, List<int> itemIds)
+    {
+        var items = await _context.ToDoItems
+            .Where(item => item.ToDoListId == listId)
+            .ToListAsync();
+
+        for (int i = 0; i < itemIds.Count; i++)
+        {
+            var item = items.FirstOrDefault(x => x.Id == itemIds[i]);
+            if (item != null) item.SortOrder = i;
+        }
+
+        await _context.SaveChangesAsync();
+    }
 }

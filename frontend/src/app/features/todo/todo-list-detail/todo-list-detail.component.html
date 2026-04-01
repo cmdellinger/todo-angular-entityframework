@@ -52,9 +52,11 @@
     }
 
     <!-- list of to-do items -->
-    <mat-list>
+    <mat-list cdkDropList (cdkDropListDropped)="onDrop($event)">
         @for (toDoItem of filteredItems(); track toDoItem.id) {
             <app-todo-item
+                cdkDrag
+                [cdkDragDisabled]="toDoItem.isCompleted"
                 [toDoItem]="toDoItem"
                 (toDoItemUpdated)="updateItem($event)"
                 (toDoItemDeleted)="deleteItem($event)"

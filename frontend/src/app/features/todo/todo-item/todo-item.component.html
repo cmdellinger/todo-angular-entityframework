@@ -1,6 +1,8 @@
  <div class="todo-item" [class.completed]="toDoItem.isCompleted">
     <!-- top row -->
     <div class="item-row">
+        <!-- drag handle -->
+        <mat-icon cdkDragHandle class="drag-handle">drag_indicator</mat-icon>
         <!-- checkbox -->
         <mat-checkbox
             [checked]="toDoItem.isCompleted"

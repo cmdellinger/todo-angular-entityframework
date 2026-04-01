@@ -79,6 +79,22 @@ namespace API.Controllers
             return NoContent();
         }
 
+        [HttpPut("{listId:int}/reorder")]
+        public async Task<IActionResult> ReorderList(int listId, [FromBody] List<int> itemIds)
+        {
+            // check logged in user
+            var userId = GetUserId();
+            if (string.IsNullOrEmpty(userId)) return Unauthorized();
+            // check that list exists
+            var toDoList = await repo.GetListByIdAsync(listId);
+            if (toDoList == null) return NotFound();
+            // check list ownership
+            if (toDoList.UserId != userId) return Forbid();
+
+            await repo.UpdateSortOrderAsync(listId, itemIds);
+            return NoContent();
+        }
+
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteList(int id)
         {

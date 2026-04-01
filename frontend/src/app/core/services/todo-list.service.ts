@@ -33,6 +33,10 @@ export class ToDoListService {
     return this.http.put<void>(this.listsUrl(id), list);
   }
 
+  reorderList(id: number, itemOrder: number[]) {
+    return this.http.put<void>(this.listsUrl(id) + "/reorder", itemOrder)
+  }
+
   deleteList(id: number) {
     return this.http.delete<void>(this.listsUrl(id));
   }

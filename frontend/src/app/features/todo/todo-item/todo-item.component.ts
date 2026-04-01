@@ -8,10 +8,12 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from '@angular/material/icon';
 
 import { ToDoItem } from '../../../core/models/todo-item.model';
+import { CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-todo-item',
   imports: [
+    CdkDragHandle,
     FormsModule,
     MatButtonModule,
     MatCheckboxModule,
