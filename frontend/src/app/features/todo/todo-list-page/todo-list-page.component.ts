@@ -34,6 +34,7 @@ export class ToDoListPageComponent {
   toDoLists = signal<ToDoList[]>([]);
 
   showForm: boolean = false;
+  isSubmitting: boolean = false;
   
   constructor() {
     effect( () => {
@@ -57,13 +58,20 @@ export class ToDoListPageComponent {
   });
 
   createNewList() {
+    this.isSubmitting = true;
     const createListDto: CreateListDto = {
       name: this.newListForm.value.name!
     }
     this.toDoListService.createList(createListDto).subscribe({
-      next: () => this.loadLists(),
-      error: (err) => console.error(err)
+      next: () => {
+        this.loadLists();
+        this.showForm = false;
+        this.isSubmitting = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.isSubmitting = false;
+      }
     })
-    this.showForm = false;
   }
 }

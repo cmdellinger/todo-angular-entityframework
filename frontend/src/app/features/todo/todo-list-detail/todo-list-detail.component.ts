@@ -47,11 +47,17 @@ export class ToDoListDetailComponent {
   toDoList = signal<ToDoList | undefined>(undefined);
   toDoItems = signal<ToDoItem[]>([]);
 
+  // new item form
   showAddForm = false;
   newItemTitle = '';
+  // activation status of completion status filter
   hideSingleSelectionIndicator = signal(false);
+  // completion status filter
   filter = signal('active');
+  // list of lists loading
   isLoading = signal(true);
+  // lock buttons when submitting information
+  isSubmitting = false;
 
   constructor() {
     this.route.paramMap.subscribe(params => {
@@ -74,6 +80,7 @@ export class ToDoListDetailComponent {
   // ============
 
   addItem() {
+    this.isSubmitting = true;
     const newItem: ToDoItem = {
       id: 0,
       title: this.newItemTitle || 'new to-do item',
@@ -85,6 +92,7 @@ export class ToDoListDetailComponent {
         this.toDoItems.update( items => [...items, created]);
         this.newItemTitle = '';
         this.showAddForm = false;
+        this.isSubmitting = false;
       }
     );
   }
@@ -101,6 +109,7 @@ export class ToDoListDetailComponent {
   }
 
   saveEdit() {
+    this.isSubmitting = true;
     const updatedList = {
       ...this.toDoList()!,
       name: this.editTitle
@@ -109,6 +118,7 @@ export class ToDoListDetailComponent {
       () => {
         this.toDoList.set(updatedList);
         this.isEditing = false;
+        this.isSubmitting = false;
         this.toDoListService.triggerRefresh();
       }
     );
@@ -119,8 +129,10 @@ export class ToDoListDetailComponent {
   }
 
   updateItem(toDoItem: ToDoItem) {
+    this.isSubmitting = true;
     this.toDoItemService.updateItem(toDoItem.id, toDoItem).subscribe( () => {
       this.toDoItems.update(items => items.map(i => i.id === toDoItem.id ? toDoItem : i));
+      this.isSubmitting = false;
     } );
   }
 
@@ -129,14 +141,22 @@ export class ToDoListDetailComponent {
   // ============
   
   onDelete() {
+    if (!confirm('Are you sure you want to delete this list?')) return;
+
+    this.isSubmitting = true;
     this.toDoListService.deleteList(this.toDoListId).subscribe( () => {
       this.router.navigate(['/lists']);
+      this.isSubmitting = false;
     } );
   }
 
   deleteItem(id: number) {
+    if (!confirm('Are you sure you want to delete this item?')) return;
+
+    this.isSubmitting = true;
     this.toDoItemService.deleteItem(id).subscribe( () => {
       this.toDoItems.update(items => items.filter(i => i.id !== id));
+      this.isSubmitting = false;
     } );
   }
 

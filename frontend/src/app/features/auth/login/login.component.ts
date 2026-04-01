@@ -30,6 +30,8 @@ export class LoginComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
+  isSubmitting = false;
+
   ngOnInit(){
     // check if user logged in
     if (this.authService.currentUser()) {
@@ -61,13 +63,20 @@ export class LoginComponent implements OnInit {
   });
 
   submit() {
+    this.isSubmitting = true;
     const loginDto: LoginDto = {
       email: this.loginForm.value.email!,
       password: this.loginForm.value.password!
     }
     this.authService.login(loginDto).subscribe({
-      next: () => this.router.navigate(['/lists']),
-      error: (err) => console.error(err)
+      next: () => {
+        this.router.navigate(['/lists']);
+        this.isSubmitting = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.isSubmitting = false;
+      }
     })
   }
 

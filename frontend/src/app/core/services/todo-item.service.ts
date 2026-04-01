@@ -6,12 +6,14 @@ import { ToDoItem } from '../models/todo-item.model';
 import { CreateItemDto } from '../dtos/item/create-item.dto';
 import { UpdateItemDto } from '../dtos/item/update-item.dto';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class ToDoItemService {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:5000/api';
+  private readonly apiUrl = `${environment.apiUrl}`;
   private itemsUrl(listId: number): string {
     return `${this.apiUrl}/todolists/${listId}/items`;
   }

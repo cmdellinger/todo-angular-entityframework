@@ -7,13 +7,15 @@ import { User } from '../models/user.model';
 import { RegisterDto } from '../dtos/auth/register.dto';
 import { LoginDto } from '../dtos/auth/login.dto';
 
+import { environment } from '../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:5000/api';
+  private readonly apiUrl = `${environment.apiUrl}`;
   authUrl = this.apiUrl + '/auth';
   currentUser = signal<User | null>(null);
 

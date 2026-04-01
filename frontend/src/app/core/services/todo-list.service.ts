@@ -6,12 +6,14 @@ import { ToDoList } from '../models/todo-list.model';
 import { CreateListDto } from '../dtos/list/create-list.dto';
 import { UpdateListDto } from '../dtos/list/update-list.dto';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class ToDoListService {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:5000/api';
+  private readonly apiUrl = `${environment.apiUrl}`;
   private listsUrl(id?: number): string {
     return id ? `${this.apiUrl}/todolists/${id}` : `${this.apiUrl}/todolists`
   }

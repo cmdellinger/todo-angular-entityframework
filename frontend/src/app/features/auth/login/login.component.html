@@ -15,7 +15,7 @@
                     <input matInput type="password" formControlName="password">
                 </mat-form-field>
 
-                <button matButton="tonal" type="submit" [disabled]="loginForm.invalid">Login</button>
+                <button matButton="tonal" type="submit" [disabled]="loginForm.invalid || isSubmitting">Login</button>
             </form>
 
             <div class="or-divider">

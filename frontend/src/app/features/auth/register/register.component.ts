@@ -31,6 +31,8 @@ export class RegisterComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
 
+  isSubmitting = false;
+
   ngOnInit(){
     if (this.authService.currentUser()) {
       this.router.navigate(['/lists']);
@@ -68,6 +70,7 @@ export class RegisterComponent implements OnInit {
   }
 
   submit() {
+    this.isSubmitting = true;
     const registerDto: RegisterDto = {
       username: this.registerForm.value.username!,
       email: this.registerForm.value.email!,
@@ -75,8 +78,14 @@ export class RegisterComponent implements OnInit {
 
     }
     this.authService.register(registerDto).subscribe({
-      next: () => this.router.navigate(['/lists']),
-      error: (err) => console.error(err)
+      next: () => {
+        this.router.navigate(['/lists']);
+        this.isSubmitting = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.isSubmitting = false;
+      }
     })
   }
 }

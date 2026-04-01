@@ -14,11 +14,22 @@
     } @else {
         <div class="header-row">
             <h2>{{toDoList()?.name}}</h2>
-            <button mat-icon-button class="material-icons" (click)="startEdit()">
-                <mat-icon>edit</mat-icon>
+            <button 
+                mat-icon-button 
+                class="material-icons"
+                (click)="startEdit()"
+                [disabled]="isSubmitting"
+            >
+                    <mat-icon>edit</mat-icon>
             </button>
             <span class="spacer"></span>
-            <button mat-icon-button class="material-icons" color="warn" (click)="onDelete()">
+            <button 
+                mat-icon-button
+                class="material-icons"
+                color="warn"
+                (click)="onDelete()"
+                [disabled]="isSubmitting"
+            >
                 <mat-icon>delete</mat-icon>
             </button>
         </div>
@@ -47,7 +58,13 @@
                 <mat-label>Title</mat-label>
                 <input matInput [(ngModel)]="newItemTitle">
             </mat-form-field>
-            <button mat-button (click)="addItem()">Add To-Do</button>
+            <button
+                mat-button
+                (click)="addItem()"
+                [disabled]="isSubmitting"
+            >
+                Add To-Do
+            </button>
         </div>
     }
 

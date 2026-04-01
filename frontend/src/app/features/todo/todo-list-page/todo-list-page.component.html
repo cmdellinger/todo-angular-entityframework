@@ -7,7 +7,7 @@
             <mat-label for="name">List Name</mat-label>
             <input matInput formControlName="name">
         </mat-form-field>
-        <button matButton="tonal" type="submit" [disabled]="newListForm.invalid">Create List</button>
+        <button matButton="tonal" type="submit" [disabled]="newListForm.invalid || isSubmitting">Create List</button>
     </form>
 }
 
