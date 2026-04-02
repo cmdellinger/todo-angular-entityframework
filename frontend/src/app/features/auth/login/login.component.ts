@@ -11,6 +11,8 @@ import { AuthService } from '../../../core/services/auth.service';
 
 import { LoginDto } from '../../../core/dtos/auth/login.dto';
 
+import { environment } from '../../../../environments/environment';
+
 @Component({
   selector: 'app-login',
   imports: [
@@ -81,6 +83,6 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin() {
-    window.location.href = 'http://localhost:5000/api/auth/google-login';
+    window.location.href = `${environment.apiUrl}/auth/google-login`;
   }  
 }

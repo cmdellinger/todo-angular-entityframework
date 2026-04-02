@@ -488,3 +488,9 @@ obj/
 **/obj/
 bin/
 **/bin/
+
+# Azure deployment artifacts
+*.zip
+
+# Angular build output
+frontend/dist/

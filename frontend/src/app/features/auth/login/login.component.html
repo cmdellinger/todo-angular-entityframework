@@ -22,7 +22,7 @@
                 <span>OR</span>
             </div>
             
-            <button matButton="tonal" (click)="googleLogin()">Sign in with Google</button>
+            <button matButton="tonal" (click)="googleLogin()" [disabled]="isSubmitting">Sign in with Google</button>
 
             <p>Don't have an account? <a routerLink="/register">Register</a></p>
         </mat-card-content>

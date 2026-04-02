@@ -53,7 +53,10 @@ builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy", policy =>
     {
-        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins(
+            "http://localhost:4200",
+            "https://kind-rock-0cd76b90f-preview.eastus2.1.azurestaticapps.net"
+        );
     });
 });
 

@@ -1,4 +1,3 @@
-using System.Reflection;
 using System.Security.Claims;
 using Core.DTOs;
 using Core.Entities;
@@ -7,7 +6,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -16,7 +14,8 @@ namespace API.Controllers
     [ApiController]
     public class AuthController(UserManager<AppUser> userManager,
                                 SignInManager<AppUser> signInManager,
-                                ITokenService tokenService)
+                                ITokenService tokenService,
+                                IConfiguration config)
                                 : ControllerBase
     {
         [HttpPost("register")]
@@ -122,7 +121,7 @@ namespace API.Controllers
             await HttpContext.SignOutAsync("Cookies");
             //issue jwt
             var token = tokenService.CreateToken(user!);
-            return Redirect($"http://localhost:4200/login?token={token}");
+            return Redirect($"{config["FrontendUrl"]}/login?token={token}");
         }
     }
 }
