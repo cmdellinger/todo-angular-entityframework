@@ -55,7 +55,9 @@ builder.Services.AddCors(opt =>
     {
         policy.AllowAnyHeader().AllowAnyMethod().WithOrigins(
             "http://localhost:4200",
-            "https://kind-rock-0cd76b90f-preview.eastus2.1.azurestaticapps.net"
+            "https://kind-rock-0cd76b90f-preview.eastus2.1.azurestaticapps.net",
+            "https://kind-rock-0cd76b90f.1.azurestaticapps.net",
+            "https://todo.charlesdellinger.com"
         );
     });
 });
