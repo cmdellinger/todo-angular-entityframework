@@ -4,14 +4,18 @@ A full-stack todo list application with Angular frontend and .NET 9 backend.
 
 **Live:** https://todo.charlesdellinger.com
 
+![Dashboard](screenshots/dashboard.png)
+
 ## Features
 
 - Multiple todo lists per user
 - Drag-and-drop persistent reorder
 - Active/Completed/All filter toggle
 - Inline editing for list names, item titles, and descriptions
-- Google OAuth and email/password authentication
 - Responsive Material Design UI
+- Google OAuth and email/password authentication
+
+![Login](screenshots/login.png)
 
 ## Tech Stack
 
